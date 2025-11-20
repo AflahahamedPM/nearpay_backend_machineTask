@@ -36,7 +36,9 @@ module.exports = {
       const {
         startOfMonth,
         endOfMonth,
-      } = await UtilController.getStartAndEndOfMoth(createObj?.month);
+      } = await UtilController.getStartAndEndOfMoth(
+        Math.floor(Date.now() / 1000)
+      );
 
       const createBudgetObj = {
         categoryId: categoryResult?._id,
