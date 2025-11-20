@@ -1,4 +1,5 @@
 const { returnCode } = require("../../../config/responseCode");
+const Budget = require("../../model/Budget");
 const Category = require("../../model/Category");
 const UtilController = require("../services/UtilController");
 
@@ -30,7 +31,21 @@ module.exports = {
 
       createObj["userId"] = userId;
 
-      await Category.create(createObj);
+      const categoryResult = await Category.create(createObj);
+
+      const {
+        startOfMonth,
+        endOfMonth,
+      } = await UtilController.getStartAndEndOfMoth(createObj?.month);
+
+      const createBudgetObj = {
+        categoryId: categoryResult?._id,
+        startDate: startOfMonth,
+        endDate: endOfMonth,
+        userId: createObj?.userId,
+      };
+
+      await Budget.create(createBudgetObj);
 
       UtilController.sendSuccess(req, res, next, {
         message: "Category created successfully",

@@ -1,8 +1,8 @@
-const responseCode = require("../../../config/responseCode").returnCode
+const responseCode = require("../../../config/responseCode").returnCode;
 const CryptoJS = require("crypto-js");
 
-module.exports ={
-    sendSuccess: async (req, res, next, data) => {
+module.exports = {
+  sendSuccess: async (req, res, next, data) => {
     if (module.exports.isEmpty(data.responseCode)) {
       data["responseCode"] = responseCode.validSession;
     }
@@ -42,7 +42,7 @@ module.exports ={
       // Decrypt
       let bytes = CryptoJS.AES.decrypt(passwordHash, secretKey);
       let decryptedPwd = bytes.toString(CryptoJS.enc.Utf8);
-    //   console.log("decryptedPwd", decryptedPwd);
+      //   console.log("decryptedPwd", decryptedPwd);
       if (decryptedPwd === userPassword) {
         returnObj = responseCode.passwordMatched;
       }
@@ -53,4 +53,27 @@ module.exports ={
       return returnObj;
     }
   },
-}
+
+  getStartAndEndOfMoth: (epochSeconds) => {
+    const currentDate = new Date(epochSeconds * 1000);
+
+    const startOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
+
+    // Get the end of the month
+    const nextMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      1
+    );
+    const endOfMonth = new Date(nextMonth - 1);
+
+    return {
+      startOfMonth: Math.floor(startOfMonth / 1000),
+      endOfMonth: Math.floor(endOfMonth / 1000),
+    };
+  },
+};

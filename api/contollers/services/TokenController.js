@@ -45,9 +45,7 @@ module.exports = {
           next,
           {
             responseCode: returnCode.invalidSession,
-            result: {
-              message: "authtoken not present or empty in headers",
-            },
+            message: "authtoken not present or empty in headers",
           },
           httpReturnCode.unauthorized
         );
