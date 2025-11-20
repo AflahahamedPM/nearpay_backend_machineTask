@@ -57,7 +57,7 @@ module.exports = {
     }
   },
 
-  getStartAndEndOfMonth: (month) => {
+  getStartAndEndOfMoth: (month) => {
     dayjs.extend(utc);
     dayjs.extend(timezone);
 
