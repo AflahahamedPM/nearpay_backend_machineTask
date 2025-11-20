@@ -54,16 +54,39 @@ module.exports = {
     }
   },
 
-  getStartAndEndOfMoth: (epochSeconds) => {
-    const ms = Number(epochSeconds) * 1000;
-    const d = new Date(ms);
+  getStartAndEndOfMoth: (month) => {
+    // Accepts: epoch seconds (number or numeric string), ms, Date, dayjs, or null
+    let epochSec = null;
 
-    const year = d.getUTCFullYear();
-    const month = d.getUTCMonth();
+    if (month === undefined || month === null) {
+      epochSec = Math.floor(Date.now() / 1000);
+    } else if (typeof month === "number") {
+      // if looks like ms (>= 1e12), convert to seconds
+      epochSec = String(month).length > 10 ? Math.floor(month / 1000) : month;
+    } else if (typeof month === "string" && /^\d+$/.test(month)) {
+      // numeric string
+      epochSec =
+        month.length > 10 ? Math.floor(Number(month) / 1000) : Number(month);
+    } else if (month instanceof Date) {
+      epochSec = Math.floor(month.getTime() / 1000);
+    } else if (month && typeof month.toDate === "function") {
+      // dayjs object
+      epochSec = Math.floor(month.toDate().getTime() / 1000);
+    } else {
+      // fallback: try Date parse
+      const d = new Date(month);
+      epochSec = isNaN(d.getTime())
+        ? Math.floor(Date.now() / 1000)
+        : Math.floor(d.getTime() / 1000);
+    }
 
-    const start = new Date(Date.UTC(year, month, 1, 0, 0, 0, 0));
+    // Use UTC fields to compute month boundaries (safe across server TZs)
+    const dUTC = new Date(epochSec * 1000);
+    const year = dUTC.getUTCFullYear();
+    const monthIndex = dUTC.getUTCMonth(); // 0-11
 
-    const end = new Date(Date.UTC(year, month + 1, 0, 23, 59, 59, 999));
+    const start = new Date(Date.UTC(year, monthIndex, 1, 0, 0, 0, 0));
+    const end = new Date(Date.UTC(year, monthIndex + 1, 0, 23, 59, 59, 999));
 
     return {
       startOfMonth: Math.floor(start.getTime() / 1000),
