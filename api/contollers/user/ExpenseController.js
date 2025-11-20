@@ -34,7 +34,7 @@ module.exports = {
                   $expr: {
                     $and: [
                       { $eq: ["$_id", "$$categoryId"] },
-                      { $eq: ["$active", true] }, 
+                      { $eq: ["$active", true] },
                     ],
                   },
                 },
@@ -79,6 +79,7 @@ module.exports = {
         startOfMonth,
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(updateObj?.date);
+      console.log(startOfMonth, endOfMonth, "start and end of month");
 
       const userObjectId = new mongoose.Types.ObjectId(userId);
       const categoryObjectId = new mongoose.Types.ObjectId(
