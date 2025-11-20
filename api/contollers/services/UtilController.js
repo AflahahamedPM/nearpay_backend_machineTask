@@ -55,25 +55,19 @@ module.exports = {
   },
 
   getStartAndEndOfMoth: (epochSeconds) => {
-    const currentDate = new Date(epochSeconds * 1000);
+    const ms = Number(epochSeconds) * 1000;
+    const d = new Date(ms);
 
-    const startOfMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      1
-    );
+    const year = d.getUTCFullYear();
+    const month = d.getUTCMonth();
 
-    // Get the end of the month
-    const nextMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-      1
-    );
-    const endOfMonth = new Date(nextMonth - 1);
+    const start = new Date(Date.UTC(year, month, 1, 0, 0, 0, 0));
+
+    const end = new Date(Date.UTC(year, month + 1, 0, 23, 59, 59, 999));
 
     return {
-      startOfMonth: Math.floor(startOfMonth / 1000),
-      endOfMonth: Math.floor(endOfMonth / 1000),
+      startOfMonth: Math.floor(start.getTime() / 1000),
+      endOfMonth: Math.floor(end.getTime() / 1000),
     };
   },
 };
