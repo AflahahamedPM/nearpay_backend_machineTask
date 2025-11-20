@@ -14,6 +14,12 @@ module.exports = {
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(month);
 
+      console.log(
+        startOfMonth,
+        endOfMonth,
+        "start and end of month in get expense api"
+      );
+
       const userObjectId = new mongoose.Types.ObjectId(userId);
 
       const budgetResult = await Budget.aggregate([
@@ -108,6 +114,11 @@ module.exports = {
         startOfMonth,
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(createObj?.month);
+      console.log(
+        startOfMonth,
+        endOfMonth,
+        "start and end of month in create budget api"
+      );
 
       createObj["userId"] = userId;
       createObj["startDate"] = startOfMonth;

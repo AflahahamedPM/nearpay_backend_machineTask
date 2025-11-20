@@ -13,6 +13,8 @@ module.exports = {
         startOfMonth,
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(month);
+            console.log(startOfMonth, endOfMonth, "start and end of month in getAll expense api");
+
 
       const userObjectId = new mongoose.Types.ObjectId(userId);
 
@@ -79,7 +81,7 @@ module.exports = {
         startOfMonth,
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(updateObj?.date);
-      console.log(startOfMonth, endOfMonth, "start and end of month");
+      console.log(startOfMonth, endOfMonth, "start and end of month in create expense api");
 
       const userObjectId = new mongoose.Types.ObjectId(userId);
       const categoryObjectId = new mongoose.Types.ObjectId(

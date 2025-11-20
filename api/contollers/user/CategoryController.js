@@ -40,6 +40,12 @@ module.exports = {
         Math.floor(Date.now() / 1000)
       );
 
+      console.log(
+        startOfMonth,
+        endOfMonth,
+        "start and end of month in create category api"
+      );
+
       const createBudgetObj = {
         categoryId: categoryResult?._id,
         startDate: startOfMonth,
