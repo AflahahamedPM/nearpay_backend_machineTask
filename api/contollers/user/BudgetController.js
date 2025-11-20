@@ -8,18 +8,12 @@ module.exports = {
     try {
       const userId = req?.user?.userId;
       const { month } = req?.body;
-      console.log(month, "month in getBudget api");
 
       const {
         startOfMonth,
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(month);
 
-      console.log(
-        startOfMonth,
-        endOfMonth,
-        "start and end of month in get budget api"
-      );
 
       const userObjectId = new mongoose.Types.ObjectId(userId);
 
@@ -111,18 +105,11 @@ module.exports = {
       const { userId } = req?.user;
       const createObj = req?.body;
 
-      console.log(createObj?.month, "month in createBudget api");
-
       const {
         startOfMonth,
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(createObj?.month);
-      console.log(
-        startOfMonth,
-        endOfMonth,
-        "start and end of month in create budget api"
-      );
-
+    
       createObj["userId"] = userId;
       createObj["startDate"] = startOfMonth;
       createObj["endDate"] = endOfMonth;
