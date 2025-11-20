@@ -11,7 +11,7 @@ connectDB();
 const app = express();
 
 let corsOptions = {
-  origin: ["http://localhost:5173", "http://localhost:5175"],
+  origin: ["http://localhost:5173", "http://localhost:5175", "https://nearpay-backend-machinetask-3.onrender.com"],
   credentials: true,
 };
 
