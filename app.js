@@ -15,6 +15,7 @@ let corsOptions = {
     "http://localhost:5173",
     "http://localhost:5175",
     "https://nearpay-frontend-machine-task-mwsk4lumq.vercel.app",
+    "https://nearpay-frontend-machine-task.vercel.app"
   ],
   credentials: true,
 };
