@@ -9,12 +9,17 @@ module.exports = {
       const userId = req?.user?.userId;
 
       const { month } = req?.body;
+      console.log(month, "month in expense fetch api");
+
       const {
         startOfMonth,
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(month);
-            console.log(startOfMonth, endOfMonth, "start and end of month in getAll expense api");
-
+      console.log(
+        startOfMonth,
+        endOfMonth,
+        "start and end of month in getAll expense api"
+      );
 
       const userObjectId = new mongoose.Types.ObjectId(userId);
 
@@ -76,12 +81,17 @@ module.exports = {
     try {
       const { userId } = req?.user;
       const updateObj = req?.body || {};
+      console.log(updateObj?.date, "date in createExpesne api");
 
       const {
         startOfMonth,
         endOfMonth,
       } = await UtilController.getStartAndEndOfMoth(updateObj?.date);
-      console.log(startOfMonth, endOfMonth, "start and end of month in create expense api");
+      console.log(
+        startOfMonth,
+        endOfMonth,
+        "start and end of month in create expense api"
+      );
 
       const userObjectId = new mongoose.Types.ObjectId(userId);
       const categoryObjectId = new mongoose.Types.ObjectId(

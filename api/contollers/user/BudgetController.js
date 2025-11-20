@@ -8,6 +8,8 @@ module.exports = {
     try {
       const userId = req?.user?.userId;
       const { month } = req?.body;
+      console.log(month,"month in getBudget api");
+      
 
       const {
         startOfMonth,
@@ -109,6 +111,9 @@ module.exports = {
     try {
       const { userId } = req?.user;
       const createObj = req?.body;
+
+      console.log(createObj?.month,"month in createBudget api");
+      
 
       const {
         startOfMonth,
